@@ -22,17 +22,12 @@ sr=22050
 # soccer_path, _ = librosa.load(path=soccer_path, sr=sr)
 
 def extract_features(file_path, duration=30, frame_length=0.025, hop_length=0.010):
-    # Load audio (Librosa handles .wav and .mp3)
     y, sr = librosa.load(file_path, duration=duration)
-    
-    # Calculate frame parameters in samples
+
     n_fft = int(frame_length * sr)
     hop_size = int(hop_length * sr)
-    
-    # Extract MFCCs
+
     mfccs = librosa.feature.mfcc(y=y, sr=sr, n_mfcc=13, n_fft=n_fft, hop_length=hop_size)
-    
-    # Return transposed so each row is a time frame/observation
     return mfccs.T
 
 dir = "../q1_data/"
